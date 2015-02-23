@@ -1,0 +1,58 @@
+/* CSS Template */
+.AddButton {
+    width: 15%;
+    border: 1px solid black;
+    padding: 0px;
+    margin-left: 2.5%;
+    background-color: grey;
+    float: left;
+}
+
+.SubButton {
+    width: 15%;
+    border: 1px solid black;
+    padding: 0px;
+    background-color: grey;
+    float: left;
+}
+
+.ChartWidgetContainer {
+    width: 90%;
+    max-width: 500px;
+    float: left;
+}
+
+.TotalWidgetContainer {
+    float: left;
+}
+
+.ButtonLabel {
+    width: 33.3%;
+    float: left;
+    text-align: center;
+}
+
+.TaskText:hover, .TaskText:focus {
+    font-style: italic;
+    color: grey;
+    border: dashed grey 1px;
+}
+
+.NewTaskText:hover, .NewTaskText:focus {
+    min-width: 50px;
+    font-style: italic;
+    color: grey;
+    border: dashed grey 1px;
+}
+
+.StrikeText {
+    text-decoration:line-through;
+}
+
+.InlineBlock {
+    display: inline-block;
+}
+
+.Clear {
+    clear: both;
+}
