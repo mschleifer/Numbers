@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -136,40 +136,46 @@
     function redrawBarChart() {
         ctxBarChartCanvas.clearRect(0, 0, canBarChart.width, canBarChart.height);
 
+        var unitHeight = (canvasHeight - barTextPadding - 10)/(Math.max(fCount, fGoal, pCount, pGoal, cCount, cGoal));
 
+        // Fbar
         ctxBarChartCanvas.fillStyle = fBarColor;
-        ctxBarChartCanvas.fillRect(fBarXPosition, canvasHeight, barWidth, -fCount);
-        ctxBarChartCanvas.fillText(fCount, fBarXPosition + (barWidth / 2), canvasHeight - fCount - barTextPadding);
+        ctxBarChartCanvas.fillRect(fBarXPosition, canvasHeight, barWidth, -(fCount * unitHeight));
+        ctxBarChartCanvas.fillText(fCount, fBarXPosition + (barWidth / 2), canvasHeight - (fCount * unitHeight) - barTextPadding);
 
         ctxBarChartCanvas.strokeStyle = fBarColor;
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
-        ctxBarChartCanvas.moveTo(fBarXPosition, canvasHeight - fGoal);
-        ctxBarChartCanvas.lineTo(fBarXPosition + barWidth, canvasHeight - fGoal);
+        ctxBarChartCanvas.moveTo(fBarXPosition, canvasHeight - (fGoal * unitHeight));
+        ctxBarChartCanvas.lineTo(fBarXPosition + barWidth, canvasHeight - (fGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(fGoal, fBarXPosition + (barWidth / 2), canvasHeight - fGoal - barTextPadding);
+        ctxBarChartCanvas.fillText(fGoal, fBarXPosition + (barWidth / 2), canvasHeight - (fGoal * unitHeight) - barTextPadding);
 
+        // Cbar
         ctxBarChartCanvas.fillStyle = cBarColor;
-        ctxBarChartCanvas.fillRect(cBarXPosition, canvasHeight, barWidth, -cCount);
-        ctxBarChartCanvas.fillText(cCount, cBarXPosition + (barWidth / 2), canvasHeight - cCount - barTextPadding);
+        ctxBarChartCanvas.fillRect(cBarXPosition, canvasHeight, barWidth, -(cCount * unitHeight));
+        ctxBarChartCanvas.fillText(cCount, cBarXPosition + (barWidth / 2), canvasHeight - (cCount * unitHeight) - barTextPadding);
+
         ctxBarChartCanvas.strokeStyle = cBarColor;
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
-        ctxBarChartCanvas.moveTo(cBarXPosition, canvasHeight - cGoal);
-        ctxBarChartCanvas.lineTo(cBarXPosition + barWidth, canvasHeight - cGoal);
+        ctxBarChartCanvas.moveTo(cBarXPosition, canvasHeight - (cGoal * unitHeight));
+        ctxBarChartCanvas.lineTo(cBarXPosition + barWidth, canvasHeight - (cGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(cGoal, cBarXPosition + (barWidth / 2), canvasHeight - cGoal - barTextPadding);
+        ctxBarChartCanvas.fillText(cGoal, cBarXPosition + (barWidth / 2), canvasHeight - (cGoal * unitHeight) - barTextPadding);
 
+        // Pbar
         ctxBarChartCanvas.fillStyle = pBarColor;
-        ctxBarChartCanvas.fillRect(pBarXPosition, canvasHeight, barWidth, -pCount);
-        ctxBarChartCanvas.fillText(pCount, pBarXPosition + (barWidth / 2), canvasHeight - pCount - barTextPadding);
+        ctxBarChartCanvas.fillRect(pBarXPosition, canvasHeight, barWidth, -(pCount * unitHeight));
+        ctxBarChartCanvas.fillText(pCount, pBarXPosition + (barWidth / 2), canvasHeight - (pCount * unitHeight) - barTextPadding);
+
         ctxBarChartCanvas.strokeStyle = pBarColor;
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
-        ctxBarChartCanvas.moveTo(pBarXPosition, canvasHeight - pGoal);
-        ctxBarChartCanvas.lineTo(pBarXPosition + barWidth, canvasHeight - pGoal);
+        ctxBarChartCanvas.moveTo(pBarXPosition, canvasHeight - (pGoal * unitHeight));
+        ctxBarChartCanvas.lineTo(pBarXPosition + barWidth, canvasHeight - (pGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(pGoal, pBarXPosition + (barWidth / 2), canvasHeight - pGoal - barTextPadding);
+        ctxBarChartCanvas.fillText(pGoal, pBarXPosition + (barWidth / 2), canvasHeight - (pGoal * unitHeight) - barTextPadding);
     }
 
     function redrawTotalChart() {
