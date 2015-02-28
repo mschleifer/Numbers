@@ -1,20 +1,33 @@
-/* CSS Template */
-.AddButton {
+/*Jquery Mobile Override*/
+
+.ui-input-btn {
     width: 15%;
-    border: 1px solid black;
-    padding: 0px;
-    margin-left: 2.5%;
-    background-color: grey;
     float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
-.SubButton {
+.ui-btn {
+    border: 0px;
+}
+
+/* CSS Template */
+/*.AddButton {
     width: 15%;
     border: 1px solid black;
     padding: 0px;
     background-color: grey;
     float: left;
-}
+}*/
+
+/*.SubButton {
+    width: 15%;
+    border: 1px solid black;
+    padding: 0px;
+    background-color: grey;
+    float: left;
+}*/
 
 .ChartWidgetContainer {
     width: 90%;
@@ -46,7 +59,7 @@
 }
 
 .StrikeText {
-    text-decoration:line-through;
+    text-decoration: line-through;
 }
 
 .InlineBlock {
