@@ -35,9 +35,9 @@
         <input id="btnPAdd" type="button" class="AddButton" value="+" />
         <input id="btnPSub" type="button" class="SubButton" value="-" />
         <div class="Clear"></div>
-        <div class="ButtonLabel">F <input type="text" pattern="[0-9]*" id="txtFTotal" class="MacroTotalTextInput" data-role="none" /></div>
-        <div class="ButtonLabel">C <input type="text" pattern="[0-9]*" id="txtCTotal" class="MacroTotalTextInput" data-role="none" /></div>
-        <div class="ButtonLabel">P <input type="text" pattern="[0-9]*" id="txtPTotal" class="MacroTotalTextInput" data-role="none" /></div>
+        <div class="ButtonLabel">F <input type="number" id="txtFTotal" class="MacroTotalTextInput" data-role="none" /></div>
+        <div class="ButtonLabel">C <input type="number" id="txtCTotal" class="MacroTotalTextInput" data-role="none" /></div>
+        <div class="ButtonLabel">P <input type="number" id="txtPTotal" class="MacroTotalTextInput" data-role="none" /></div>
     </div>
     <div class="TotalWidgetContainer">
         <canvas id="canTotalChart"></canvas>
@@ -85,26 +85,24 @@
     var fGoal = localStorage.getItem(slFGoal) || 80;
     var cGoal = localStorage.getItem(slCGoal) || 160;
     var pGoal = localStorage.getItem(slPGoal) || 160;
-    $("#txtGoalF").val(fGoal);
-    $("#txtGoalC").val(cGoal);
-    $("#txtGoalP").val(pGoal);
     var calGoal = (fGoal * 9) + (cGoal * 4) + (pGoal * 4);
     var buttonHoldTimer;
 
     var ctxBarChartCanvas = barChartCanvas.getContext("2d");
     ctxBarChartCanvas.textAlign = "center";
     ctxBarChartCanvas.font = "12px Arial";
-    resizeBarChart();
 
     var ctxTotalChartCanvas = totalChartCanvas.getContext("2d");
-    redrawTotalChart();
-    updateRatio();
 
     $(document).ready(function () {
 
         if (typeof (Storage) === "undefined") {
             alert("Your browser does not support HTML Local Storage. This application may not work correctly and anything you enter will not be saved after this browser tab is closed.");
         }
+
+        resizeBarChart();
+        redrawTotalChart();
+        updateRatio();
 
         $(".AddButton").parent().css("margin-left", "2.5%")
 
@@ -113,16 +111,21 @@
         $(window).resize(resizeBarChart);
         $(window).on('orientationchange', resizeBarChart);
 
+        $("#txtGoalF").val(fGoal);
+        $("#txtGoalC").val(cGoal);
+        $("#txtGoalP").val(pGoal);
+
         $("#txtGoalF").change(updateGoals);
         $("#txtGoalC").change(updateGoals);
         $("#txtGoalP").change(updateGoals);
 
-        $("#txtFTotal").change(function () {
-            fcount = $("#txtFTotal").text;
-            redrawBarChart();
-        });
-        $("#txtCTotal").change(updateGoals);
-        $("#txtPTotal").change(updateGoals);
+        $("#txtFTotal").val(fCount);
+        $("#txtCTotal").val(cCount);
+        $("#txtPTotal").val(pCount);
+
+        $("#txtFTotal").change(updateTotals);
+        $("#txtCTotal").change(updateTotals);
+        $("#txtPTotal").change(updateTotals);
 
         $("#btnClearTotals").click(function () {
             fCount = 0;
@@ -136,6 +139,17 @@
         $("#btnAddTask").click(addTask);
 
     });
+
+    function updateTotals() {
+        if ($.isNumeric(this.value)) {
+            fCount = $("#txtFTotal").val();
+            cCount = $("#txtCTotal").val();
+            pCount = $("#txtPTotal").val();
+
+            redrawBarChart();
+            redrawTotalChart();
+        }
+    }
 
     function resizeBarChart() {
         barChartCanvas.width = barChartCanvas.parentElement.clientWidth;
@@ -160,43 +174,64 @@
         ctxBarChartCanvas.fillStyle = fBarColor;
         ctxBarChartCanvas.fillRect(fBarXPosition, canvasHeight, barWidth, -(fCount * unitHeight));
         //ctxBarChartCanvas.fillText(fCount, fBarXPosition + (barWidth / 2), canvasHeight - (fCount * unitHeight) - barTextPadding);
-        $("#txtFTotal").text(fCount);
+        $("#txtFTotal").val(fCount);
 
-        ctxBarChartCanvas.strokeStyle = fBarColor;
+        if (parseInt(fCount) > parseInt(fGoal)) {
+            ctxBarChartCanvas.strokeStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillText(fGoal, fBarXPosition + (barWidth / 2), canvasHeight - (fGoal * unitHeight) + barTextPadding * 2);
+        }
+        else {
+            ctxBarChartCanvas.strokeStyle = fBarColor;
+            ctxBarChartCanvas.fillText(fGoal, fBarXPosition + (barWidth / 2), canvasHeight - (fGoal * unitHeight) - barTextPadding);
+        }
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
         ctxBarChartCanvas.moveTo(fBarXPosition, canvasHeight - (fGoal * unitHeight));
         ctxBarChartCanvas.lineTo(fBarXPosition + barWidth, canvasHeight - (fGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(fGoal, fBarXPosition + (barWidth / 2), canvasHeight - (fGoal * unitHeight) - barTextPadding);
 
         // Cbar
         ctxBarChartCanvas.fillStyle = cBarColor;
         ctxBarChartCanvas.fillRect(cBarXPosition, canvasHeight, barWidth, -(cCount * unitHeight));
         //ctxBarChartCanvas.fillText(cCount, cBarXPosition + (barWidth / 2), canvasHeight - (cCount * unitHeight) - barTextPadding);
-        $("#txtCTotal").text(cCount);
+        $("#txtCTotal").val(cCount);
 
-        ctxBarChartCanvas.strokeStyle = cBarColor;
+        if (parseInt(cCount) > parseInt(cGoal)) {
+            ctxBarChartCanvas.strokeStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillText(cGoal, cBarXPosition + (barWidth / 2), canvasHeight - (cGoal * unitHeight) + barTextPadding * 2);
+        }
+        else {
+            ctxBarChartCanvas.strokeStyle = cBarColor;
+            ctxBarChartCanvas.fillText(cGoal, cBarXPosition + (barWidth / 2), canvasHeight - (cGoal * unitHeight) - barTextPadding);
+        }
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
         ctxBarChartCanvas.moveTo(cBarXPosition, canvasHeight - (cGoal * unitHeight));
         ctxBarChartCanvas.lineTo(cBarXPosition + barWidth, canvasHeight - (cGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(cGoal, cBarXPosition + (barWidth / 2), canvasHeight - (cGoal * unitHeight) - barTextPadding);
 
         // Pbar
         ctxBarChartCanvas.fillStyle = pBarColor;
         ctxBarChartCanvas.fillRect(pBarXPosition, canvasHeight, barWidth, -(pCount * unitHeight));
         //ctxBarChartCanvas.fillText(pCount, pBarXPosition + (barWidth / 2), canvasHeight - (pCount * unitHeight) - barTextPadding);
-        $("#txtPTotal").text(pCount);
+        $("#txtPTotal").val(pCount);
 
-        ctxBarChartCanvas.strokeStyle = pBarColor;
+        if (parseInt(pCount) > parseInt(pGoal)) {
+            ctxBarChartCanvas.strokeStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillStyle = "#FFFFFF";
+            ctxBarChartCanvas.fillText(pGoal, pBarXPosition + (barWidth / 2), canvasHeight - (pGoal * unitHeight) + barTextPadding * 2);
+        }
+        else {
+            ctxBarChartCanvas.strokeStyle = pBarColor;
+            ctxBarChartCanvas.fillText(pGoal, pBarXPosition + (barWidth / 2), canvasHeight - (pGoal * unitHeight) - barTextPadding);
+        }
         ctxBarChartCanvas.setLineDash([5]);
         ctxBarChartCanvas.beginPath();
         ctxBarChartCanvas.moveTo(pBarXPosition, canvasHeight - (pGoal * unitHeight));
         ctxBarChartCanvas.lineTo(pBarXPosition + barWidth, canvasHeight - (pGoal * unitHeight));
         ctxBarChartCanvas.stroke();
-        ctxBarChartCanvas.fillText(pGoal, pBarXPosition + (barWidth / 2), canvasHeight - (pGoal * unitHeight) - barTextPadding);
     }
 
     function redrawTotalChart() {
