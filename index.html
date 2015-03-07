@@ -209,7 +209,7 @@
     }
 
     function assignIncrementButtonClickListeners() {
-        $("#btnFAdd").on("vmousedown", function () {
+        $("#btnFAdd").on("mousedown", function () {
             fCount++;
             redrawBarChart();
             redrawTotalChart();
@@ -223,7 +223,7 @@
             return false;
         });
 
-        $("#btnFSub").on("vmousedown", function () {
+        $("#btnFSub").mousedown(function () {
             if (fCount > 0) {
                 fCount--;
                 redrawBarChart();
@@ -241,7 +241,7 @@
             return false;
         });
 
-        $("#btnCAdd").on("vmousedown", function () {
+        $("#btnCAdd").mousedown(function () {
             cCount++;
             redrawBarChart();
             redrawTotalChart();
@@ -255,7 +255,7 @@
             return false;
         });
 
-        $("#btnCSub").on("vmousedown", function () {
+        $("#btnCSub").mousedown(function () {
             if (cCount > 0) {
                 cCount--;
                 redrawBarChart();
@@ -273,7 +273,7 @@
             return false;
         });
 
-        $("#btnPAdd").on("vmousedown", function () {
+        $("#btnPAdd").mousedown(function () {
             pCount++;
             redrawBarChart();
             redrawTotalChart();
@@ -287,7 +287,7 @@
             return false;
         });
 
-        $("#btnPSub").on("vmousedown", function () {
+        $("#btnPSub").mousedown(function () {
             if (pCount > 0) {
                 pCount--;
                 redrawBarChart();
@@ -305,7 +305,7 @@
             return false;
         });
 
-        $(document).on("vmouseup", function () {
+        $(document).mouseup(function () {
             clearInterval(buttonHoldTimer);
             saveFCount();
             saveCCount();
