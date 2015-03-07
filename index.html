@@ -34,10 +34,9 @@
         <input id="btnCSub" type="button" class="SubButton" value="-" />
         <input id="btnPAdd" type="button" class="AddButton" value="+" />
         <input id="btnPSub" type="button" class="SubButton" value="-" />
-        <div class="Clear"></div>
-        <div class="ButtonLabel">F <input type="text" pattern="[0-9]*" id="txtFTotal" class="MacroTotalTextInput" data-role="none" /></div>
-        <div class="ButtonLabel">C <input type="text" pattern="[0-9]*" id="txtCTotal" class="MacroTotalTextInput" data-role="none" /></div>
-        <div class="ButtonLabel">P <input type="text" pattern="[0-9]*" id="txtPTotal" class="MacroTotalTextInput" data-role="none" /></div>
+        <div class="ButtonLabel">F</div>
+        <div class="ButtonLabel">C</div>
+        <div class="ButtonLabel">P</div>
     </div>
     <div class="TotalWidgetContainer">
         <canvas id="canTotalChart"></canvas>
@@ -117,13 +116,6 @@
         $("#txtGoalC").change(updateGoals);
         $("#txtGoalP").change(updateGoals);
 
-        $("#txtFTotal").change(function () {
-            fcount = $("#txtFTotal").text;
-            redrawBarChart();
-        });
-        $("#txtCTotal").change(updateGoals);
-        $("#txtPTotal").change(updateGoals);
-
         $("#btnClearTotals").click(function () {
             fCount = 0;
             cCount = 0;
@@ -159,8 +151,7 @@
         // Fbar
         ctxBarChartCanvas.fillStyle = fBarColor;
         ctxBarChartCanvas.fillRect(fBarXPosition, canvasHeight, barWidth, -(fCount * unitHeight));
-        //ctxBarChartCanvas.fillText(fCount, fBarXPosition + (barWidth / 2), canvasHeight - (fCount * unitHeight) - barTextPadding);
-        $("#txtFTotal").text(fCount);
+        ctxBarChartCanvas.fillText(fCount, fBarXPosition + (barWidth / 2), canvasHeight - (fCount * unitHeight) - barTextPadding);
 
         ctxBarChartCanvas.strokeStyle = fBarColor;
         ctxBarChartCanvas.setLineDash([5]);
@@ -173,8 +164,7 @@
         // Cbar
         ctxBarChartCanvas.fillStyle = cBarColor;
         ctxBarChartCanvas.fillRect(cBarXPosition, canvasHeight, barWidth, -(cCount * unitHeight));
-        //ctxBarChartCanvas.fillText(cCount, cBarXPosition + (barWidth / 2), canvasHeight - (cCount * unitHeight) - barTextPadding);
-        $("#txtCTotal").text(cCount);
+        ctxBarChartCanvas.fillText(cCount, cBarXPosition + (barWidth / 2), canvasHeight - (cCount * unitHeight) - barTextPadding);
 
         ctxBarChartCanvas.strokeStyle = cBarColor;
         ctxBarChartCanvas.setLineDash([5]);
@@ -187,8 +177,7 @@
         // Pbar
         ctxBarChartCanvas.fillStyle = pBarColor;
         ctxBarChartCanvas.fillRect(pBarXPosition, canvasHeight, barWidth, -(pCount * unitHeight));
-        //ctxBarChartCanvas.fillText(pCount, pBarXPosition + (barWidth / 2), canvasHeight - (pCount * unitHeight) - barTextPadding);
-        $("#txtPTotal").text(pCount);
+        ctxBarChartCanvas.fillText(pCount, pBarXPosition + (barWidth / 2), canvasHeight - (pCount * unitHeight) - barTextPadding);
 
         ctxBarChartCanvas.strokeStyle = pBarColor;
         ctxBarChartCanvas.setLineDash([5]);

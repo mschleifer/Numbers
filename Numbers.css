@@ -29,19 +29,9 @@
     float: left;
 }*/
 
-/*Remove number box spinners*/
-/*input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-input[type="number"] {
-    -moz-appearance: textfield;
-}*/
-
 .ChartWidgetContainer {
     width: 90%;
-    /*max-width: 500px;*/
+    max-width: 500px;
     float: left;
 }
 
@@ -54,17 +44,6 @@ input[type="number"] {
     float: left;
     text-align: center;
 }
-
-.MacroTotalTextInput {
-    border: dashed grey 1px;
-    text-align: center;
-}
-
-    .MacroTotalTextInput:hover, .MacroTotalTextInput:focus {
-        font-style: italic;
-        color: grey;
-        border: dashed grey 1px;
-    }
 
 .TaskText:hover, .TaskText:focus {
     font-style: italic;
