@@ -372,7 +372,7 @@
     }
 
     function addTask() {
-        $(".TaskWidgetContainer").append("<div class='TaskItem'><br /><input type='checkbox' class='TaskCheckbox' /><span class='NewTaskText' contenteditable='true'>Add Task...</span><input type='button' class='DeleteTaskButton' value='X' /></div>");
+        $(".TaskWidgetContainer").append("<div class='TaskItem'><br /><input type='checkbox' class='TaskCheckbox' /><input type='text' class='NewTaskText' value='Add Task...' data-role='none' /><input type='button' class='DeleteTaskButton' value='X' /></div>");
         $(".TaskCheckbox").change(toggleTaskText);
         $(".DeleteTaskButton").on("vclick", deleteTask);
         $(".DeleteTaskButton").button();
@@ -380,10 +380,10 @@
         $(".DeleteTaskButton").parent().css('display', 'inline-table');
         $(".NewTaskText").focus();
         $(".NewTaskText").one("keydown", function () {
-            $(".NewTaskText").empty();
+            $(".NewTaskText").val('');
         });
         $(".NewTaskText").one("blur", function () {
-            if ($(".NewTaskText").text() == "" || $(".NewTaskText").text() == "Add Task...") {
+            if ($(".NewTaskText").val() == "" || $(".NewTaskText").val() == "Add Task...") {
                 $(".TaskWidgetContainer .TaskItem").last().remove();
             }
             $(".NewTaskText").toggleClass("NewTaskText TaskText");
@@ -395,7 +395,7 @@
     }
 
     function toggleTaskText() {
-        $(".TaskCheckbox").change($(this).next("span").toggleClass("StrikeText"));
+        $(".TaskCheckbox").change($(this).next("input").toggleClass("StrikeText"));
     }
 
     function saveAllCounts() {
