@@ -127,7 +127,7 @@
         $("#txtCTotal").change(updateTotals);
         $("#txtPTotal").change(updateTotals);
 
-        $("#btnClearTotals").click(function () {
+        $("#btnClearTotals").on("vclick", function () {
             fCount = 0;
             cCount = 0;
             pCount = 0;
@@ -136,7 +136,7 @@
             saveAllCounts();
         });
 
-        $("#btnAddTask").click(addTask);
+        $("#btnAddTask").on("vclick", addTask);
 
     });
 
@@ -340,7 +340,7 @@
             return false;
         });
 
-        $(document).on("vmouseup", function () {
+        $(document).on("vmouseup touchend", function () {
             clearInterval(buttonHoldTimer);
             saveFCount();
             saveCCount();
@@ -374,7 +374,7 @@
     function addTask() {
         $(".TaskWidgetContainer").append("<div class='TaskItem'><br /><input type='checkbox' class='TaskCheckbox' /><span class='NewTaskText' contenteditable='true'>Add Task...</span><input type='button' class='DeleteTaskButton' value='X' /></div>");
         $(".TaskCheckbox").change(toggleTaskText);
-        $(".DeleteTaskButton").click(deleteTask);
+        $(".DeleteTaskButton").on("vclick", deleteTask);
         $(".NewTaskText").focus();
         $(".NewTaskText").one("keydown", function () {
             $(".NewTaskText").empty();
