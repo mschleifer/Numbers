@@ -42,7 +42,7 @@
     <div class="TotalWidgetContainer">
         <canvas id="canTotalChart"></canvas>
         <br />
-        <button id="btnClearTotals">Clear All</button>
+        <button id="btnClearTotals">Reset</button>
     </div>
     <div class="Clear"></div>
     <div class="TaskWidgetContainer">
@@ -134,7 +134,7 @@
             resizeBarChart();
             redrawTotalChart();
             saveAllCounts();
-        }); 
+        });
 
         $("#btnAddTask").on("vclick", addTask);
 
@@ -375,20 +375,23 @@
         $(".TaskWidgetContainer").append("<div class='TaskItem'><br /><input type='checkbox' class='TaskCheckbox' /><span class='NewTaskText' contenteditable='true'>Add Task...</span><input type='button' class='DeleteTaskButton' value='X' /></div>");
         $(".TaskCheckbox").change(toggleTaskText);
         $(".DeleteTaskButton").on("vclick", deleteTask);
+        $(".DeleteTaskButton").button();
+        $(".DeleteTaskButton").parent().css('float', 'none');
+        $(".DeleteTaskButton").parent().css('display', 'inline-table');
         $(".NewTaskText").focus();
         $(".NewTaskText").one("keydown", function () {
             $(".NewTaskText").empty();
         });
         $(".NewTaskText").one("blur", function () {
             if ($(".NewTaskText").text() == "" || $(".NewTaskText").text() == "Add Task...") {
-                $(".TaskWidgetContainer div").last().remove();
+                $(".TaskWidgetContainer .TaskItem").last().remove();
             }
             $(".NewTaskText").toggleClass("NewTaskText TaskText");
         });
     }
 
     function deleteTask() {
-        $(this).parent().remove();
+        $(this).closest('.TaskItem').remove();
     }
 
     function toggleTaskText() {
