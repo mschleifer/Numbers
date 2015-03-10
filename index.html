@@ -134,7 +134,7 @@
             resizeBarChart();
             redrawTotalChart();
             saveAllCounts();
-        });
+        }); 
 
         $("#btnAddTask").on("vclick", addTask);
 
@@ -368,7 +368,7 @@
 
     function updateRatio() {
         var goalTotal = Number(fGoal) + Number(cGoal) + Number(pGoal);
-        $("#spnGoalRatio").text((100 * fGoal / goalTotal).toFixed(2) + ":" + (100 * cGoal / goalTotal).toFixed(2) + ":" + (100 * pGoal / goalTotal).toFixed(2));
+        $("#spnGoalRatio").text(Math.round(((100 * fGoal / goalTotal)) * 10) / 10 + ":" + Math.round(((100 * cGoal / goalTotal)) * 10) / 10 + ":" + Math.round(((100 * pGoal / goalTotal)) * 10) / 10);
     }
 
     function addTask() {
